@@ -22,19 +22,35 @@ int main(void) {
   Prepend(list, 1);
   AssertEq(1,GetAt(list,0),"Prepend");
   AppendAll(list,b);
-  AssertEq(11,GetAt(list,4),"AppendAll");
+  AssertEq(11,GetAt(list,4),"AppendAll_1");
+  AssertEq(10,GetAt(list,3),"AppendAll_2");
+  AssertEq(42,GetAt(list,1),"AppendAll_3");
   InsertAt(list,1, 123);
-  AssertEq(123,GetAt(list,2),"InsertAt");
+  AssertEq(123,GetAt(list,2),"InsertAt_1");
   AssertEq(5,GetAt(list,3),"InsertAt_2");
-  RemoveAt(list,4);
-  AssertEq(11,GetAt(list,4),"RemoveAt");
+  AssertEq(42,GetAt(list,1),"InsertAt_3");
+  RemoveAt(list,2);
+  AssertEq(11,GetAt(list,4),"RemoveAt_1");
+  AssertEq(10,GetAt(list,3),"Remove_2");
+  AssertEq(42,GetAt(list,1),"Remove_3");
   RemoveAll(b);
   Append(b,10);
   Append(b,2);
   Append(b,3);
-  AssertEq(10,GetAt(b,0),"RemoveAll");
+  Append(b,4);
+  AssertEq(10,GetAt(b,0),"RemoveAll_1");
   AssertEq(2,GetAt(b,1),"RemoveAll_2");
-  AssertEq(3,Pop(b),"Pop");
+  AssertEq(3,GetAt(b,2),"RemoveAll_3");
+  AssertEq(4,Pop(b),"Pop");
+  for (int i=0; i<Length(b);i++){
+      printf("%d ",GetAt(b,i));
+  }
+  printf("\n");
   AssertEq(10,Dequeue(b),"Deque");
+    for (int i=0; i<Length(b);i++){
+        printf("%d ",GetAt(b,i));
+    }
+  AssertEq(2,Length(b),"Length");
+  AssertEq(2,GetAt(b,0),"GetAt");
   DestroyList(list);
 }   

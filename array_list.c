@@ -69,9 +69,9 @@ void AppendAll(List *this, const List *that) {
         if (this->capacity == size_all) {
             while (this->capacity <= size_all) { NewMemory(this); }
         }
-        if (this->capacity / 4 >= size_all) { DeleteMemory(this); }
         for (int i = 0; i < that->size ; i++) { Append(this, that->array[i]); }
         this->size=size_all;
+        if (this->capacity / 4 >= size_all) { DeleteMemory(this); }
     }
     else {return exit(1);}
 }
@@ -80,7 +80,7 @@ void InsertAt(List *this, int index, int value) {
         this->size++;
         this->length++;
         if (this->capacity==this->size) {NewMemory(this);}
-        for (int i=this->length; i>=index+1; i--){
+        for (int i=this->length; i>index+1; i--){
             this->array[i]=this->array[i-1];
         }
         this->array[index+1]=value;
@@ -91,10 +91,10 @@ void RemoveAt(List *this, int index) {
     if (index >=0 && index <= this->length){
         this->size--;
         this->length--;
-        if (this->capacity / 4 >= this->size) DeleteMemory(this);
         for (int i = index; i < this->size ; i++) {
             this->array[i] = this->array[i + 1];
         }
+        if (this->capacity / 4 >= this->size) DeleteMemory(this);
     }
 }
 
@@ -112,12 +112,6 @@ int Pop(List *this){
         this->size--;
         this->length--;
         if (this->capacity/4 >= this-> size){ DeleteMemory(this);}
-        int* new=malloc(sizeof(int)*this->capacity);
-        for (int i=0; i<this->size; i++){
-            new[i]=this->array[i];
-        }
-        free(this->array);
-        this->array=new;
         return x;
     }
     else exit(-1);
@@ -128,12 +122,10 @@ int Dequeue(List *this) {
         int x=this->array[0];
         this->size--;
         this->length--;
-        if (this->capacity/4 == this->size){ DeleteMemory(this);}
-        int* new=malloc(sizeof(int)*this->capacity);
-        for (int i=0; i<this->length; i++){
-            new[i]=this->array[i+1];
+        for (int i=0; i<this->size; i++){
+            this->array[i]=this->array[i+1];
         }
-        this->array=new;
+        if (this->capacity/4 == this->size){ DeleteMemory(this);}
         return x;
     }
     else { exit(-1);}
