@@ -35,22 +35,14 @@ int main(void) {
   AssertEq(42,GetAt(list,1),"Remove_3");
   RemoveAll(b);
   Append(b,10);
-  Append(b,2);
-  Append(b,3);
-  Append(b,4);
+  Append(b,11);
+  Append(b,12);
   AssertEq(10,GetAt(b,0),"RemoveAll_1");
-  AssertEq(2,GetAt(b,1),"RemoveAll_2");
-  AssertEq(3,GetAt(b,2),"RemoveAll_3");
-  AssertEq(4,Pop(b),"Pop");
-  for (int i=0; i<Length(b);i++){
-      printf("%d ",GetAt(b,i));
-  }
-  printf("\n");
+  AssertEq(11,GetAt(b,1),"RemoveAll_2");
+  AssertEq(12,GetAt(b,2),"RemoveAll_3");
+  AssertEq(12,Pop(b),"Pop");
   AssertEq(10,Dequeue(b),"Deque");
-    for (int i=0; i<Length(b);i++){
-        printf("%d ",GetAt(b,i));
-    }
-  AssertEq(2,Length(b),"Length");
-  AssertEq(2,GetAt(b,0),"GetAt");
+  AssertEq(1,Length(b),"Length");
+  AssertEq(11,GetAt(b,0),"GetAt");
   DestroyList(list);
 }   
